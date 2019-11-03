@@ -42,7 +42,7 @@ public class VentanaEmail extends JFrame implements ActionListener {
     }
     public void configurarContainer() {
         container.setLayout(new GridBagLayout());
-        //fila 01
+        //fila 001
         configurarConstraint(0, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER,
                 0, 0, 1, 1, para);
         configurarConstraint(1, 0, GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER,
