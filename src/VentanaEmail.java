@@ -1,4 +1,11 @@
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +20,9 @@ public class VentanaEmail extends JFrame implements ActionListener {
     Container container;
     Properties properties;
 
-
-
     public void todoEmail(){
     instancias();
+    properties();
     configurarContainer();
     pack();
     setLocationRelativeTo(null);
@@ -98,9 +104,51 @@ public class VentanaEmail extends JFrame implements ActionListener {
 
 
     }
+    public void properties(){
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.user", "jaimegfg@gmail.com");
+        properties.put("mail.password", "imeja**2020");
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==eliminar){
+
+            correo.setText("");
+            para1.setText("");
+            CC1.setText("");
+            CCO1.setText("");
+            Asunto1.setText("");
+        }
+        if (e.getSource()==enviar){
+            properties();
+            Session session = Session.getInstance(properties, null);
+            MimeMessage mimeMessage = new MimeMessage(session);
+            Transport transport = null;
+            try {
+                mimeMessage.setText(correo.getText());
+                mimeMessage.setFrom(new InternetAddress("jaimegfg@gmail.com"));
+                InternetAddress[]direcciones= new InternetAddress[]{new InternetAddress(para1.getText().toString())};
+                //mimeMessage.setRecipients(correo.RecipientType.TO,direcciones);
+                mimeMessage.setSubject(Asunto1.getText().toString());
+                transport.connect(properties.getProperty("mail.user"), properties.getProperty("mail.password"));
+                transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+                transport = session.getTransport("smtp");
+                transport.close();
+            }
+            catch (MessagingException e1) {
+                e1.printStackTrace();
+
+            }
+
+
+
+
+
+        }
 
     }
 }
