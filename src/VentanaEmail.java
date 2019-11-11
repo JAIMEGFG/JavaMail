@@ -110,7 +110,7 @@ public class VentanaEmail extends JFrame implements ActionListener {
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.user", "jaimegfg@gmail.com");
-        properties.put("mail.password", "imeja**2020");
+        properties.put("mail.password", "");
     }
 
     @Override
